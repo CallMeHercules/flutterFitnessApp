@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //local
 import 'package:untitled1/db/exercises/exercisePerformed/exercisePerformed.dart';
 import 'package:untitled1/db/exercises/exercisePerformed/exercisePerformedDBConstructor.dart';
+import '../../home.dart';
 import '../exercisesList.dart';
 import 'exercisePerformedList.dart';
 
@@ -24,14 +25,38 @@ class AddPerformExercise extends StatelessWidget {
         appBar: AppBar(
           title : Text(name.toString())
         ),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.arrow_back),
-            onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>  const ExercisesList()),
-              );
-            }
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              FloatingActionButton(
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  const Home()),
+                  );
+                },
+                child: const Icon(Icons.home),
+              ),
+              FloatingActionButton(
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  ExercisePerformedList(
+                      exercisesID: int.parse(exercisesID.toString())
+                      ,name: name
+                      ,barType: barType
+                      ,
+                      )
+                    ),
+                  );
+                },
+                child: const Icon(Icons.arrow_back),
+              ),
+            ],
+          ),
         ),
         body: Column(
           children: <Widget>[

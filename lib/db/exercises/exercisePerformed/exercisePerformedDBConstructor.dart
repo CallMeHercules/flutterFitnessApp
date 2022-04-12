@@ -25,7 +25,6 @@ class ExercisePerformedDBConstructor {
   }
   Future _onCreate(Database db, int version) async {
     db.execute('''PRAGMA foreign_keys = ON''');
-    print('execute');
     await db.execute('''
       CREATE TABLE IF NOT EXISTS exercisePerformed(
         id INTEGER PRIMARY KEY

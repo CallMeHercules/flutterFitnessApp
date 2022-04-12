@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:untitled1/db/exercises/exercisePerformed/exercisePerformed.dart';
 import 'package:untitled1/db/exercises/exercisePerformed/exercisePerformedDBConstructor.dart';
 import 'package:untitled1/widgets/exerciseManagement/editExercisesForm.dart';
+import 'package:untitled1/widgets/exerciseManagement/exercisesList.dart';
+import 'package:untitled1/widgets/exerciseManagement/performExercise/addPerformExercise.dart';
 import '../../home.dart';
-import '../exercisesList.dart';
 import '../graphData.dart';
 import 'editPerformExercise.dart';
 
@@ -65,10 +66,26 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
               onPressed: () async {
                 Navigator.push(
                   context,
+                  MaterialPageRoute(builder: (context) =>  AddPerformExercise(
+                      exercisesID: widget.exercisesID
+                      , barType: widget.barType
+                      , name: widget.name
+                    )
+                  ),
+                );
+              },
+              child: const Icon(Icons.add),
+            ),
+            FloatingActionButton(
+              onPressed: () async {
+                Navigator.push(
+                  context,
                   MaterialPageRoute(builder: (context) =>  StackedAreaLineChart(
                     animate: true
                     ,exercisesID: widget.exercisesID
-                    , swap: 'TODAY'
+                    ,name: widget.name
+                    ,barType: widget.barType
+                    ,swap: 'TODAY'
                     ,
                     )
                   ),
@@ -80,11 +97,12 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
               onPressed: () async {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  const ExercisesList()),
+                  MaterialPageRoute(builder: (context) =>  const ExercisesList()
+                  ),
                 );
               },
               child: const Icon(Icons.arrow_back),
-            )
+            ),
           ],
         ),
       ),
@@ -116,7 +134,8 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
                           ,name: widget.name
                           ,weight: exercisePerformed.weight
                           ,reps: exercisePerformed.reps
-                        )),
+                        )
+                        ),
                       );
                     },
                     ),

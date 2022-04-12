@@ -5,6 +5,7 @@ import '../../../db/exercises/exercisePerformed/exercisePerformed.dart';
 import '../../../db/exercises/exercisePerformed/exercisePerformedDBConstructor.dart';
 import '../exercisesList.dart';
 import '../../home.dart';
+import 'exercisePerformedList.dart';
 
 class EditPerformExercise extends StatelessWidget {
   final weightTextController = TextEditingController();
@@ -53,7 +54,11 @@ class EditPerformExercise extends StatelessWidget {
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  const ExercisesList()),
+                    MaterialPageRoute(builder: (context) =>  ExercisePerformedList(
+                      exercisesID: exercisesID
+                      ,name: name
+                      ,barType: barType
+                    )),
                   );
                 },
                 child: const Icon(Icons.arrow_back),
