@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:untitled1/db/exercises/exercisePerformed/exercisePerformed.dart';
 import 'package:untitled1/db/exercises/exercisePerformed/exercisePerformedDBConstructor.dart';
 import '../../home.dart';
-import '../exercisesList.dart';
 import 'exercisePerformedList.dart';
 
 class AddPerformExercise extends StatelessWidget {

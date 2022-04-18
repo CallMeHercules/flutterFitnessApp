@@ -1,9 +1,0 @@
-
-**/android/
-**/ios/
-**/linux/
-**/windows/
-**/web/
-**/build/
-**/test/
-.packages
