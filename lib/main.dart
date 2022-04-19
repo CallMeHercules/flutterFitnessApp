@@ -8,12 +8,17 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'widgets/home.dart';
 
 void main() {
-  if (Platform.isWindows || Platform.isLinux) {
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+  try {
+    if (Platform.isWindows || Platform.isLinux) {
+      sqfliteFfiInit();
+      databaseFactory = databaseFactoryFfi;
+    }
+  } catch (error){
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(const MyApp());
   }
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  // WidgetsFlutterBinding.ensureInitialized();
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -133,8 +133,8 @@ class StackedAreaLineChart extends StatelessWidget {
       charts.Series<LiftsPerformed, int>(
         id: name,
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        domainFn: (LiftsPerformed lifts, _) => lifts.reps,
-        measureFn: (LiftsPerformed lifts, _) => lifts.weight,
+        domainFn: (LiftsPerformed lifts, _) => lifts.x,
+        measureFn: (LiftsPerformed lifts, _) => lifts.y,
         data: weightData,
       ),
     ];
@@ -142,7 +142,8 @@ class StackedAreaLineChart extends StatelessWidget {
 }
 
 class LiftsPerformed {
-  final int reps;
-  final int weight;
-  LiftsPerformed(this.reps, this.weight);
+  final int x;
+  var y;
+  LiftsPerformed(this.x, this.y);
 }
+
