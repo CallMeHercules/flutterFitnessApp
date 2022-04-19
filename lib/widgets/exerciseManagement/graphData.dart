@@ -43,7 +43,7 @@ class StackedAreaLineChart extends StatelessWidget {
                   ,exercisesID: exercisesID
                   , name: name
                   , barType: barType
-                  , swap: swap=='TODAY' ? 'ALL TIME' : swap
+                  , swap: swap=='TODAY' ? 'ALL TIME' : 'TODAY'
                   ,
                   )
                 ),

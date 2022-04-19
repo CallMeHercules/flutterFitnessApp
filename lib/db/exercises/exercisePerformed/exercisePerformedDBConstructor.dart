@@ -52,7 +52,7 @@ class ExercisePerformedDBConstructor {
     switch (swap)
     {
       case 'TODAY': {
-        var exercisePerformed = await db.query('exercisePerformed',where: '''strftime('YYYY-MM-DD',exercisePerformed.t) == strftime('YYYY-MM-DD',DATE('now')) AND exercisesID = ?''',whereArgs: [id], orderBy: 't');
+        var exercisePerformed = await db.query('exercisePerformed',where: '''datetime(t,'start of day') == datetime(DATE('now'), 'start of day') AND exercisesID = ?''',whereArgs: [id], orderBy: 't');
         List<ExercisePerformed> exercisePerformedList = exercisePerformed
             .isNotEmpty
             ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()
@@ -63,7 +63,7 @@ class ExercisePerformedDBConstructor {
  break;
 
       case 'ALL TIME': {
-        var exercisePerformed = await db.query('exercisePerformed',where: '''exercisesID = ?''',whereArgs: [id], orderBy: 't');
+        var exercisePerformed = await db.query('exercisePerformed',where: 'exercisesID = ?',whereArgs: [id], orderBy: 't');
         List<ExercisePerformed> exercisePerformedList = exercisePerformed
             .isNotEmpty
             ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()
@@ -72,7 +72,7 @@ class ExercisePerformedDBConstructor {
       }
 
     }
-    var exercisePerformed = await db.query('exercisePerformed',where: '''exercisesID = ?''',whereArgs: [id], orderBy: 't');
+    var exercisePerformed = await db.query('exercisePerformed',where: 'exercisesID = ?',whereArgs: [id], orderBy: 't');
     List<ExercisePerformed> exercisePerformedList = exercisePerformed
         .isNotEmpty
         ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()
