@@ -40,7 +40,7 @@ class ExercisePerformedDBConstructor {
 
   Future<List<ExercisePerformed>> getExercisePerformed(int id) async {
     Database db = await instance.database;
-    var exercisePerformed = await db.query('exercisePerformed', where: 'exercisesID = ?', whereArgs: [id]);
+    var exercisePerformed = await db.query('exercisePerformed', where: 'exercisesID = ?', whereArgs: [id], orderBy: '''datetime(t,'start of day') desc, id''');
     List<ExercisePerformed> exercisePerformedList = exercisePerformed.isNotEmpty
         ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()
         : [];
