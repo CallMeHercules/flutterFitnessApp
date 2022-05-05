@@ -88,7 +88,7 @@ class AddPerformExercise extends StatelessWidget {
               // onPressed: (){},
               onPressed: () async {
                 await ExercisePerformedDBConstructor.instance.add(
-                    ExercisePerformed(exerciseID: exercisesID, weight: int.parse(weightTextController.text), reps: int.parse(repsTextController.text), t: '')
+                    ExercisePerformed(exerciseID: exercisesID, weight: int.parse(weightTextController.text), reps: int.parse(repsTextController.text), t: DateTime.now().toLocal().toString())
                 );
                 Navigator.push(
                   context,

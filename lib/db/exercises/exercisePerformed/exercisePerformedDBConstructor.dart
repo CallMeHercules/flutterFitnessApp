@@ -24,6 +24,7 @@ class ExercisePerformedDBConstructor {
     );
   }
   Future _onCreate(Database db, int version) async {
+
     db.execute('''PRAGMA foreign_keys = ON''');
     await db.execute('''
       CREATE TABLE IF NOT EXISTS exercisePerformed(
@@ -59,8 +60,6 @@ class ExercisePerformedDBConstructor {
             : [];
         return exercisePerformedList;
       }
-
- break;
 
       case 'ALL TIME': {
         var exercisePerformed = await db.query('exercisePerformed',where: 'exercisesID = ?',whereArgs: [id], orderBy: 't');

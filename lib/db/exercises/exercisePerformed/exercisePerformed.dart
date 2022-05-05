@@ -4,7 +4,6 @@ class ExercisePerformed {
   final int weight;
   final int reps;
   String? t; //timestamp
-
   ExercisePerformed({this.id, required this.exerciseID,required this.weight,required this.reps, this.t});
 
   factory ExercisePerformed.fromMap(Map<String, dynamic> json) => ExercisePerformed(
@@ -20,6 +19,7 @@ class ExercisePerformed {
       'exercisesID': exerciseID
       ,'weight': weight
       ,'reps': reps
+      ,'t': t
     };
   }
 }

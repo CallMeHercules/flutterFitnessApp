@@ -85,7 +85,7 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
                     ,exercisesID: widget.exercisesID
                     ,name: widget.name
                     ,barType: widget.barType
-                    ,swap: 'TODAY'
+                    ,swap: 'ALL TIME'
                     ,
                     )
                   ),

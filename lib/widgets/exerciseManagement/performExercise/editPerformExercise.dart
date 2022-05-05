@@ -102,7 +102,8 @@ class EditPerformExercise extends StatelessWidget {
                       ExercisePerformed(id: id,
                           exerciseID: exercisesID,
                           weight: weightTextController.text.isNotEmpty ? int.parse(weightTextController.text) : 0,
-                          reps: repsTextController.text.isNotEmpty ? int.parse(repsTextController.text) : 0
+                          reps: repsTextController.text.isNotEmpty ? int.parse(repsTextController.text) : 0,
+                          t: DateTime.now().toString()
                       )
                   );
                 }

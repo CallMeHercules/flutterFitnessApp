@@ -14,11 +14,9 @@ void main() {
       databaseFactory = databaseFactoryFfi;
     }
   } catch (error){
-    WidgetsFlutterBinding.ensureInitialized();
-    runApp(const MyApp());
   }
-  // WidgetsFlutterBinding.ensureInitialized();
-  // runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
