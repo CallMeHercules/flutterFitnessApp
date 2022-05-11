@@ -16,6 +16,7 @@ class AddWeightsForm extends StatelessWidget {
           title : const Text('Add'),
         ),
         floatingActionButton: FloatingActionButton(
+            heroTag: "btn1",
             child: const Icon(Icons.arrow_back),
             onPressed: () async {
               Navigator.push(

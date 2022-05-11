@@ -1,4 +1,3 @@
-/// Example of a stacked area chart.
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -7,20 +6,21 @@ import 'package:untitled1/db/exercises/exercisePerformed/exercisePerformedDBCons
 import 'package:untitled1/widgets/exerciseManagement/performExercise/exercisePerformedList.dart';
 import '../../db/exercises/exercisePerformed/exercisePerformed.dart';
 import '../home.dart';
+import 'graphDataAllTime.dart';
 
-class StackedAreaLineChart extends StatelessWidget {
+class GraphData extends StatelessWidget {
   final bool animate;
   final int exercisesID;
   final String name;
   final String barType;
   final String swap; /*this is what determines the chart
-  I usually hard code throw it by day
+  I usually hard code throw it by all time, since that gives macro data
   lack of data or user input will switch it to ALL TIME from TODAY
   I might add more swaps in the future, to by week, month year etc.
   the idea is that this would scale in a switch statement
   */
 
-  const StackedAreaLineChart({Key? key
+  const GraphData({Key? key
     , required this.animate
     , required this.exercisesID
     , required this.name
@@ -38,12 +38,12 @@ class StackedAreaLineChart extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  StackedAreaLineChart(
+                MaterialPageRoute(builder: (context) =>  GraphDataAllTime(
                   animate: true
                   ,exercisesID: exercisesID
                   , name: name
                   , barType: barType
-                  , swap: swap=='TODAY' ? 'ALL TIME' : 'TODAY'
+                  , swap: 'TOTAL WORK PERFORMED OVER TIME'
                   ,
                   )
                 ),
@@ -61,6 +61,7 @@ class StackedAreaLineChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FloatingActionButton(
+                heroTag: "btn1",
                 onPressed: () async {
                   Navigator.push(
                     context,
@@ -70,6 +71,7 @@ class StackedAreaLineChart extends StatelessWidget {
                 child: const Icon(Icons.home),
               ),
               FloatingActionButton(
+                heroTag: "btn2",
                 onPressed: () async {
                   Navigator.push(
                     context,
@@ -99,7 +101,8 @@ class StackedAreaLineChart extends StatelessWidget {
                       ? const Center(child: Text('No exercises have been entered'))
                       :  (
                             charts.LineChart(_createSampleData(snapshot.data
-                                                              ,barType + ' ' + name),
+                                                              ,barType + ' ' + name
+                                                              ,swap.toString()),
                               defaultRenderer:
                               charts.LineRendererConfig(
                                   includeArea: true
@@ -117,33 +120,35 @@ class StackedAreaLineChart extends StatelessWidget {
 
   static List<charts.Series<LiftsPerformed, int>> _createSampleData(List<ExercisePerformed>? exercisePerformed
                                                                     ,String name
+                                                                    ,String swap
       )
   {
     List<LiftsPerformed> weightData= [
-      // LiftsPerformed(0, 0),
     ];
-    for(var i = 0; i < exercisePerformed!.length; i++){
-      var x = exercisePerformed[i].weight * (1 + 0.0333 * exercisePerformed[i].reps);
-      weightData.add (
-         LiftsPerformed(i, x.round())
-       );
-    }
+      for (var i = 0; i < exercisePerformed!.length; i++) {
+        var x = exercisePerformed[i].weight *
+            (1 + 0.0333 * exercisePerformed[i].reps);
+        weightData.add(
+            LiftsPerformed(i, x.round(), DateTime.parse(exercisePerformed[i].t.toString()))
+        );
+      }
 
-    return [
-      charts.Series<LiftsPerformed, int>(
-        id: name,
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        domainFn: (LiftsPerformed lifts, _) => lifts.x,
-        measureFn: (LiftsPerformed lifts, _) => lifts.y,
-        data: weightData,
-      ),
-    ];
-  }
+      return [
+        charts.Series<LiftsPerformed, int>(
+          id: name,
+          colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+          domainFn: (LiftsPerformed lifts, _) => lifts.x,
+          measureFn: (LiftsPerformed lifts, _) => lifts.y,
+          data: weightData,
+        ),
+      ];
+    }
 }
 
 class LiftsPerformed {
   final int x;
-  var y;
-  LiftsPerformed(this.x, this.y);
-}
+  final int y;
+  final DateTime z;
 
+  LiftsPerformed(this.x, this.y, this.z);
+}

@@ -28,6 +28,7 @@ class EditWeightsForm extends StatelessWidget {
           title : const Text('Edit'),
         ),
         floatingActionButton: FloatingActionButton(
+            heroTag: "btn2",
             child: const Icon(Icons.arrow_back),
             onPressed: () async {
               Navigator.push(

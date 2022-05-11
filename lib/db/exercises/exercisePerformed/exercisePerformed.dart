@@ -9,7 +9,7 @@ class ExercisePerformed {
   factory ExercisePerformed.fromMap(Map<String, dynamic> json) => ExercisePerformed(
       id: json['id']
       ,exerciseID: json['exercisesID']
-      ,weight: json['weight']
+      ,weight: json['weight'].round()
       ,reps: json['reps']
       ,t: json['t']
   );

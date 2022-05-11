@@ -99,6 +99,18 @@ class ExercisesDBConstructor {
         ,2 
         ,datetime('now','localtime')
     ''');
+    await db.execute('''
+    CREATE VIEW v_total_work IF NOT EXISTS
+    as
+    select sum(id) id
+    , exercisesID 
+, sum(weight * (1 + 0.0333 * reps)) weight
+, sum(reps) reps
+    , datetime(t, 'start of day') t
+from exercisePerformed
+group by datetime(t, 'start of day')
+, exercisesID
+    ''');
   }
 
   Future<List<Exercises>> getExercises() async {

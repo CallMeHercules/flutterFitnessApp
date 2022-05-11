@@ -50,6 +50,7 @@ class ExercisePerformedDBConstructor {
 
   Future<List<ExercisePerformed>> getExercisePerformedToday(int id, String swap) async {
     Database db = await instance.database;
+    
     switch (swap)
     {
       case 'TODAY': {
@@ -61,8 +62,9 @@ class ExercisePerformedDBConstructor {
         return exercisePerformedList;
       }
 
-      case 'ALL TIME': {
-        var exercisePerformed = await db.query('exercisePerformed',where: 'exercisesID = ?',whereArgs: [id], orderBy: 't');
+      case 'TOTAL WORK PERFORMED OVER TIME': {
+        // var exercisePerformed  = await db.rawQuery();
+        var exercisePerformed = await db.query('v_total_work',where: 'exercisesID = ?',whereArgs: [id], orderBy: 't');
         List<ExercisePerformed> exercisePerformedList = exercisePerformed
             .isNotEmpty
             ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()

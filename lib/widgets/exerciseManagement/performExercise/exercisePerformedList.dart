@@ -7,7 +7,7 @@ import 'package:untitled1/widgets/exerciseManagement/editExercisesForm.dart';
 import 'package:untitled1/widgets/exerciseManagement/exercisesList.dart';
 import 'package:untitled1/widgets/exerciseManagement/performExercise/addPerformExercise.dart';
 import '../../home.dart';
-import '../graphData.dart';
+import '../graphDataAllTime.dart';
 import 'editPerformExercise.dart';
 
 class ExercisePerformedList extends StatefulWidget {
@@ -54,6 +54,7 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             FloatingActionButton(
+              heroTag: "btn1",
               onPressed: () async {
                 Navigator.push(
                   context,
@@ -63,6 +64,7 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
               child: const Icon(Icons.home),
             ),
             FloatingActionButton(
+              heroTag: "btn2",
               onPressed: () async {
                 Navigator.push(
                   context,
@@ -77,15 +79,16 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
               child: const Icon(Icons.add),
             ),
             FloatingActionButton(
+              heroTag: "btn3",
               onPressed: () async {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  StackedAreaLineChart(
+                  MaterialPageRoute(builder: (context) =>  GraphDataAllTime(
                     animate: true
                     ,exercisesID: widget.exercisesID
                     ,name: widget.name
                     ,barType: widget.barType
-                    ,swap: 'ALL TIME'
+                    ,swap: 'TOTAL WORK PERFORMED OVER TIME'
                     ,
                     )
                   ),
@@ -94,6 +97,7 @@ class _ExercisePerformedList extends State<ExercisePerformedList> {
               child: const Icon(Icons.auto_graph),
             ),
             FloatingActionButton(
+              heroTag: "btn4",
               onPressed: () async {
                 Navigator.push(
                   context,

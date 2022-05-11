@@ -35,6 +35,7 @@ class _WeightsList extends State<WeightsList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FloatingActionButton(
+                heroTag: "btn3",
                 onPressed: () async {
                   Navigator.push(
                     context,
@@ -44,6 +45,7 @@ class _WeightsList extends State<WeightsList> {
                 child: const Icon(Icons.home),
               ),
               FloatingActionButton(
+                heroTag: "btn4",
                   onPressed: () async {
                     Navigator.push(
                       context,
