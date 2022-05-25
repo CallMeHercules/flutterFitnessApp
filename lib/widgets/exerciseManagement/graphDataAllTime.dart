@@ -98,10 +98,31 @@ class GraphDataAllTime extends StatelessWidget {
                     ExercisePerformedDBConstructor.instance.getExercisePerformedToday(exercisesID, swap);
                     return const Center(child: Text('loading...'));
                   }
-                  return snapshot.data!.isEmpty
+                  int count = 0;
+                  for (var i = 0; i < snapshot.data!.length; i++) {
+                    count++;
+                    // print(count);
+                  }
+                  // print(count);
+                  // if (count == 0) {
+                  //   Future.delayed(const Duration(milliseconds: 500));
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) =>  GraphData(
+                  //       animate: true
+                  //       ,exercisesID: exercisesID
+                  //       , name: name
+                  //       , barType: barType
+                  //       , swap: 'TODAY'
+                  //       ,
+                  //     )
+                  //     ),
+                  //   );
+                  // }
+                  return (count == 0)
                       ? const Center(child: Text('No exercises have been entered'))
                       :  (
-                      charts.TimeSeriesChart(_createSampleData(snapshot.data
+                      charts.TimeSeriesChart(_createLiftData(snapshot.data
                           ,barType + ' ' + name
                         ,
                       )
@@ -113,11 +134,13 @@ class GraphDataAllTime extends StatelessWidget {
     );
   }
 
-  static List<charts.Series<LiftsPerformed, DateTime>> _createSampleData(List<ExercisePerformed>? exercisePerformed
+  static List<charts.Series<LiftsPerformed, DateTime>> _createLiftData(List<ExercisePerformed>? exercisePerformed
       ,String name
       )
   {
     List<LiftsPerformed> weightData= [
+    ];
+    List<LiftsPerformed> maxData= [
     ];
     for (var i = 0; i < exercisePerformed!.length; i++) {
       var x = exercisePerformed[i].weight;
@@ -125,14 +148,27 @@ class GraphDataAllTime extends StatelessWidget {
           LiftsPerformed(i, x.round(), DateTime.parse(exercisePerformed[i].t.toString()))
       );
     }
+    for (var i = 0; i < exercisePerformed.length; i++) {
+      var x = exercisePerformed[i].id; //in v_total_work, the id will be the max 1rm for the day for that exercise.
+      maxData.add(
+          LiftsPerformed(i, int.parse(x.toString()).round(), DateTime.parse(exercisePerformed[i].t.toString()))
+      );
+    }
 
     return [
       charts.Series<LiftsPerformed, DateTime>(
-        id: name,
+        id: name + ' (work x sets)',
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         domainFn: (LiftsPerformed lifts, _) => lifts.z,
         measureFn: (LiftsPerformed lifts, _) => lifts.y,
         data: weightData,
+      ),
+      charts.Series<LiftsPerformed, DateTime>(
+        id: 'best lift',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (LiftsPerformed lifts, _) => lifts.z,
+        measureFn: (LiftsPerformed lifts, _) => lifts.y,
+        data: maxData,
       ),
     ];
   }

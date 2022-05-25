@@ -107,6 +107,7 @@ class GraphData extends StatelessWidget {
                               charts.LineRendererConfig(
                                   includeArea: true
                                   , stacked: true
+
                               )
                               ,behaviors: [charts.SeriesLegend()]
                               ,animate: animate
@@ -125,11 +126,14 @@ class GraphData extends StatelessWidget {
   {
     List<LiftsPerformed> weightData= [
     ];
+    weightData.add(
+        LiftsPerformed(0, 0,)
+    );
       for (var i = 0; i < exercisePerformed!.length; i++) {
         var x = exercisePerformed[i].weight *
             (1 + 0.0333 * exercisePerformed[i].reps);
         weightData.add(
-            LiftsPerformed(i, x.round(), DateTime.parse(exercisePerformed[i].t.toString()))
+            LiftsPerformed(i+1, x.round(),)
         );
       }
 
@@ -148,7 +152,6 @@ class GraphData extends StatelessWidget {
 class LiftsPerformed {
   final int x;
   final int y;
-  final DateTime z;
 
-  LiftsPerformed(this.x, this.y, this.z);
+  LiftsPerformed(this.x, this.y);
 }

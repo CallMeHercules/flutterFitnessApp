@@ -54,7 +54,7 @@ class ExercisePerformedDBConstructor {
     switch (swap)
     {
       case 'TODAY': {
-        var exercisePerformed = await db.query('exercisePerformed',where: '''datetime(t,'start of day') == datetime(DATE('now'), 'start of day') AND exercisesID = ?''',whereArgs: [id], orderBy: 't');
+        var exercisePerformed = await db.query('exercisePerformed',where: '''datetime(t,'start of day') == datetime(DATE('now','localtime'), 'start of day') AND exercisesID = ?''',whereArgs: [id], orderBy: 't');
         List<ExercisePerformed> exercisePerformedList = exercisePerformed
             .isNotEmpty
             ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()

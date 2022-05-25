@@ -115,7 +115,13 @@ group by datetime(t, 'start of day')
 
   Future<List<Exercises>> getExercises() async {
     Database db = await instance.database;
-    var exercises = await db.query('exercises');
+    // var exercises = await db.query('exercises');
+    var exercises  = await db.rawQuery('''select exercises.*
+from exercises
+, exercisePerformed
+where exercisePerformed.exercisesID = exercises.id
+group by exercises.id
+order by max(exercisePerformed.t)''');
     List<Exercises> exerciseList = exercises.isNotEmpty
         ? exercises.map((c) => Exercises.fromMap(c)).toList()
         : [];
