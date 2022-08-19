@@ -8,10 +8,7 @@ import 'editWeightsForm.dart';
 import 'addWeightsForm.dart';
 
 class WeightsList extends StatefulWidget {
-  const WeightsList({Key? key,
-    // required this.title
-  }) : super(key: key);
-  // final String title;
+  const WeightsList({Key? key}) : super(key: key);
   @override
   State<WeightsList> createState() => _WeightsList();
 }
@@ -23,7 +20,7 @@ class _WeightsList extends State<WeightsList> {
 
     return Scaffold(
       appBar: AppBar(
-        title : Text(
+        title : const Text(
             // widget.title
           'Weight Room'
         ),

@@ -3,7 +3,10 @@ class Weights {
   final int weight;
   final int quantity;
 
-  Weights({this.id, required this.weight,required this.quantity });
+  Weights({this.id
+    , required this.weight
+    , required this.quantity
+  });
 
   factory Weights.fromMap(Map<String, dynamic> json) => Weights(
     id: json['id'],

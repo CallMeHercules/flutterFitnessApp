@@ -42,6 +42,7 @@ class EditPerformExercise extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FloatingActionButton(
+                heroTag: "btn1",
                 onPressed: () async {
                   Navigator.push(
                     context,
@@ -51,6 +52,7 @@ class EditPerformExercise extends StatelessWidget {
                 child: const Icon(Icons.home),
               ),
               FloatingActionButton(
+                heroTag: "btn2",
                 onPressed: () async {
                   Navigator.push(
                     context,

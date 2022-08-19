@@ -43,13 +43,18 @@ class ExercisesDBConstructor {
     await db.execute('''
       CREATE TABLE IF NOT EXISTS exercises(
         id INTEGER PRIMARY KEY
-        ,barType STRING 
+        ,barType STRING NOT NULL
         ,name STRING NOT NULL
       )
     ''');
     await db.execute('''
       insert into exercises
-      select 1, 'Barbell', 'Benchpress'
+      select 1, 'Barbell', 'Back Squat'
+      union all
+      select 2, 'Barbell', 'Front Squat'
+      union all
+      select 3, 'Barbell', 'Bench Press'
+      
     ''');
     await db.execute('''
       CREATE TABLE IF NOT EXISTS exercisePerformed(
@@ -67,49 +72,52 @@ class ExercisesDBConstructor {
      select
         1
         ,1
-        ,135
-        ,10 
+        ,0
+        ,0 
         ,datetime('now','localtime')
         union all
         select
         2
-        ,1
-        ,155
-        ,6 
+        ,2
+        ,0
+        ,0 
         ,datetime('now','localtime')
         union all
         select
         3
-        ,1
-        ,185
-        ,4
-        ,datetime('now','localtime')
-        union all
-        select
-        4
-        ,1
-        ,225
         ,3
-        ,datetime('now','localtime')
-        union all
-        select
-        5
-        ,1
-        ,245
-        ,2 
+        ,0
+        ,0
         ,datetime('now','localtime')
     ''');
     await db.execute('''
-    CREATE VIEW v_total_work IF NOT EXISTS
+    CREATE VIEW v_total_work
     as
-    select sum(id) id
-    , exercisesID 
-, sum(weight * (1 + 0.0333 * reps)) weight
-, sum(reps) reps
+    with q_max as (
+    select round(max(weight * (1 + 0.0333 * reps))) oneRepMax
     , datetime(t, 'start of day') t
-from exercisePerformed
-group by datetime(t, 'start of day')
-, exercisesID
+    , exercisesID
+    , id
+    from exercisePerformed
+    group by datetime(t, 'start of day')
+    , exercisesID
+    , weight
+    , reps
+    , id
+    )
+
+    select cast(round(max(oneRepMax))as INTEGER) id
+    , exercisePerformed.exercisesID
+    , round(sum(weight * (1 + 0.0333 * reps))) weight
+    , sum(reps) reps
+    , datetime(exercisePerformed.t, 'start of day') as t
+    from exercisePerformed
+    , q_max
+    where datetime(exercisePerformed.t, 'start of day') = q_max.t
+    and exercisePerformed.exercisesID = q_max.exercisesID
+    and exercisePerformed.id = q_max.id
+    group by datetime(exercisePerformed.t, 'start of day')
+    , exercisePerformed.exercisesID
     ''');
   }
 
@@ -145,7 +153,11 @@ order by max(exercisePerformed.t)''');
 
   Future<int> add(Exercises exercises) async {
     Database db = await instance.database;
-      return await db.insert('exercises', exercises.toMap());
+    await db.execute('''
+      insert into exercises(barType, name)
+      select \''''+exercises.barType+'\',\''+exercises.name +'''\'
+      ''');
+    return await db.insert('exercises', exercises.toMap());
   }
 
   Future<int> update(Exercises exercises) async {

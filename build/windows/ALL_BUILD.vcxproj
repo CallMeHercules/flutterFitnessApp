@@ -137,6 +137,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\msull\StudioProjects\untitled1\build\windows\plugins\flutter_js\flutter_js_plugin.vcxproj">
+      <Project>{E678F3D0-6DA6-3A3F-B77D-775A62B655C8}</Project>
+      <Name>flutter_js_plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\msull\StudioProjects\untitled1\build\windows\flutter\flutter_wrapper_app.vcxproj">
       <Project>{E4352C6D-6977-3DD5-940B-4BCC9795DCCF}</Project>
       <Name>flutter_wrapper_app</Name>

@@ -130,8 +130,12 @@ class GraphData extends StatelessWidget {
         LiftsPerformed(0, 0,)
     );
       for (var i = 0; i < exercisePerformed!.length; i++) {
-        var x = exercisePerformed[i].weight *
-            (1 + 0.0333 * exercisePerformed[i].reps);
+        int x = exercisePerformed[i].weight;
+        if (exercisePerformed[i].reps > 1) {
+          x = (exercisePerformed[i].weight *
+              (1 + 0.0333 * exercisePerformed[i].reps)) as int;
+        }
+
         weightData.add(
             LiftsPerformed(i+1, x.round(),)
         );

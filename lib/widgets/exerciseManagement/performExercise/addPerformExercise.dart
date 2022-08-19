@@ -31,6 +31,7 @@ class AddPerformExercise extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FloatingActionButton(
+                heroTag: "btn1",
                 onPressed: () async {
                   Navigator.push(
                     context,
@@ -40,6 +41,7 @@ class AddPerformExercise extends StatelessWidget {
                 child: const Icon(Icons.home),
               ),
               FloatingActionButton(
+                heroTag: "btn2",
                 onPressed: () async {
                   Navigator.push(
                     context,
@@ -88,7 +90,10 @@ class AddPerformExercise extends StatelessWidget {
               // onPressed: (){},
               onPressed: () async {
                 await ExercisePerformedDBConstructor.instance.add(
-                    ExercisePerformed(exerciseID: exercisesID, weight: int.parse(weightTextController.text), reps: int.parse(repsTextController.text), t: DateTime.now().toLocal().toString())
+                    ExercisePerformed(exerciseID: exercisesID
+                        , weight: int.parse(weightTextController.text)
+                        , reps: int.parse(repsTextController.text)
+                        , t: DateTime.now().toLocal().toString())
                 );
                 Navigator.push(
                   context,

@@ -58,7 +58,8 @@ class AddExercisesForm extends StatelessWidget {
               ),
               onPressed: () async {
                 await ExercisesDBConstructor.instance.add(
-                    Exercises(barType: barTextController.text, name: nameTextController.text)
+                    Exercises(barType: barTextController.text
+                            , name: nameTextController.text)
                 );
                 Navigator.push(
                   context,

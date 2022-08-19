@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\msull\StudioProjects\untitled1\windows\flutter\ephemeral\.plugin_symlinks\flutter_js\windows\flutter_js_plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\msull\StudioProjects\untitled1\windows\flutter\ephemeral\.plugin_symlinks\flutter_js\windows\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3191B504-2985-30EA-97AF-EE597793B6FD}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

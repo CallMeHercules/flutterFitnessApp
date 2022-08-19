@@ -23,6 +23,7 @@ class ExercisePerformedDBConstructor {
       onCreate: _onCreate,
     );
   }
+
   Future _onCreate(Database db, int version) async {
 
     db.execute('''PRAGMA foreign_keys = ON''');
@@ -41,7 +42,7 @@ class ExercisePerformedDBConstructor {
 
   Future<List<ExercisePerformed>> getExercisePerformed(int id) async {
     Database db = await instance.database;
-    var exercisePerformed = await db.query('exercisePerformed', where: 'exercisesID = ?', whereArgs: [id], orderBy: '''datetime(t,'start of day') desc, id''');
+    var exercisePerformed = await db.query('exercisePerformed', where: 'exercisesID = ?', whereArgs: [id], orderBy: '''datetime(t, 'start of day') desc, weight desc, reps desc''');
     List<ExercisePerformed> exercisePerformedList = exercisePerformed.isNotEmpty
         ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()
         : [];
@@ -64,7 +65,9 @@ class ExercisePerformedDBConstructor {
 
       case 'TOTAL WORK PERFORMED OVER TIME': {
         // var exercisePerformed  = await db.rawQuery();
+
         var exercisePerformed = await db.query('v_total_work',where: 'exercisesID = ?',whereArgs: [id], orderBy: 't');
+
         List<ExercisePerformed> exercisePerformedList = exercisePerformed
             .isNotEmpty
             ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()

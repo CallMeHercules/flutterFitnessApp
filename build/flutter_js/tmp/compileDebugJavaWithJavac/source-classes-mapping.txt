@@ -1,0 +1,2 @@
+io/abner/flutter_js/BuildConfig.java
+ io.abner.flutter_js.BuildConfig

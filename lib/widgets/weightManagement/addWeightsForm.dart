@@ -60,7 +60,8 @@ class AddWeightsForm extends StatelessWidget {
               ),
               onPressed: () async {
                 await WeightsDBConstructor.instance.add(
-                    Weights(weight: int.parse(weightTextController.text), quantity:int.parse(quantityTextController.text))
+                    Weights(weight: int.parse(weightTextController.text)
+                        , quantity:int.parse(quantityTextController.text))
                 );
                 Navigator.push(
                   context,
