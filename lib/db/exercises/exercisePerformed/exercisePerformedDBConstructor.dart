@@ -42,7 +42,7 @@ class ExercisePerformedDBConstructor {
 
   Future<List<ExercisePerformed>> getExercisePerformed(int id) async {
     Database db = await instance.database;
-    var exercisePerformed = await db.query('exercisePerformed', where: 'exercisesID = ?', whereArgs: [id], orderBy: '''datetime(t, 'start of day') desc, weight desc, reps desc''');
+    var exercisePerformed = await db.query('exercisePerformed', where: 'exercisesID = ? and weight != 0 and reps != 0', whereArgs: [id], orderBy: '''datetime(t, 'start of day') desc, weight desc, reps desc''');
     List<ExercisePerformed> exercisePerformedList = exercisePerformed.isNotEmpty
         ? exercisePerformed.map((c) => ExercisePerformed.fromMap(c)).toList()
         : [];
@@ -64,7 +64,6 @@ class ExercisePerformedDBConstructor {
       }
 
       case 'TOTAL WORK PERFORMED OVER TIME': {
-        // var exercisePerformed  = await db.rawQuery();
 
         var exercisePerformed = await db.query('v_total_work',where: 'exercisesID = ?',whereArgs: [id], orderBy: 't');
 

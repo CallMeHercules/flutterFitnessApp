@@ -151,11 +151,42 @@ order by max(exercisePerformed.t)''');
     return name;
   }
 
+  Future<String> getId(String barType, String name) async {
+    Database db = await instance.database;
+    var exercises = await db.query('exercises'
+        , columns: ['id']
+        , where: 'barType = ? and name = ?'
+        , whereArgs: [barType, name]
+    );
+    String id ='ERROR';
+    for(var i = 0; i < exercises.length; i++){
+      var x = exercises[i].values;
+    }
+    return id;
+  }
+
   Future<int> add(Exercises exercises) async {
     Database db = await instance.database;
     await db.execute('''
-      insert into exercises(barType, name)
-      select \''''+exercises.barType+'\',\''+exercises.name +'''\'
+      delete from exercises
+      where not exists (select null
+                        from exercisePerformed ep
+                        where exercises.id = ep.exercisesID
+                        group by exercisesID
+                        having sum(weight) > 0);
+                        
+      ''');
+    await db.insert('exercises', exercises.toMap());
+    await db.execute('''
+      insert into exercisePerformed(exercisesID, weight, reps,t)
+      select
+         id
+        ,0
+        ,0 
+        ,datetime('now','localtime')
+        from exercises
+        where barType =''' +' \'' + exercises.barType + '\' ' + '''
+        and name =''' + ' \'' + exercises.name + '\';' + '''
       ''');
     return await db.insert('exercises', exercises.toMap());
   }

@@ -9,16 +9,15 @@ class Exercises {
   });
 
   factory Exercises.fromMap(Map<String, dynamic> json) => Exercises(
-    id: json['id']
+     id     : json['id']
     ,barType: json['barType']
-    ,name: json['name']
+    ,name   : json['name']
   );
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id
-      ,'barType': barType
-      ,'name': name
+        'barType': barType
+      , 'name'   : name
     };
   }
 }
